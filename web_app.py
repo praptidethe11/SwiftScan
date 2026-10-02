@@ -1,22 +1,3 @@
-"""
-SwiftScan Web Application Interface.
-
-Serves the interactive SwiftScan UI and streams real-time scan progress
-and findings to the browser via Server-Sent Events (SSE).
-
-Security model
---------------
-* With SWIFTSCAN_TOKEN set, every /api/* route needs the token (Bearer header
-  or the cookie set by /login). Without it the app only answers loopback
-  clients, so a container or server that is reachable from the network can
-  never be an open scanner by accident - this is enforced per request, so it
-  also holds when gunicorn imports web_app:app directly.
-* Cross-site requests (a web page you visit trying to start a scan on your
-  localhost) are refused using Sec-Fetch-Site / Origin.
-* Scans run in a background thread, so closing the browser tab does not lose
-  the reports; the single scan slot is held until the scan really finishes.
-* Run with ONE gunicorn worker: the scan slot is per-process.
-"""
 import argparse
 import datetime
 import hmac
@@ -153,12 +134,12 @@ def guard():
     token = _expected_token()
 
     # No token configured -> local use only.
-    if not token and not (_is_loopback_addr(request.remote_addr) and _host_is_loopback(request.host)):
+    if not token and not _host_is_loopback(request.host):
         audit("access_denied", reason="no_token_non_local", client_ip=request.remote_addr, path=request.path)
         return _deny(403, "Access restricted to localhost. Set SWIFTSCAN_TOKEN to allow remote access.")
 
     # Block other websites from driving this app through the user's browser.
-    if (_wants_json() or request.path == "/login") and _is_cross_site():
+    if (_wants_json() or (request.path == "/login" and request.method == "POST")) and _is_cross_site():
         audit("access_denied", reason="cross_site", client_ip=request.remote_addr, path=request.path)
         return _deny(403, "Cross-site requests are not allowed.")
 

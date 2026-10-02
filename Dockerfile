@@ -13,10 +13,10 @@ ENV DEBIAN_FRONTEND=noninteractive \
     NMAP_PRIVILEGED=1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        python3 python3-pip python3-venv ca-certificates git libcap2-bin \
-        nmap nikto dnsrecon wafw00f sslyze amass theharvester dirb fierce \
-        dmitry dnsenum whatweb wapiti xsser uniscan davtest lbd dnsmap \
-        dnswalk wget whois bind9-host \
+    python3 python3-pip python3-venv ca-certificates git libcap2-bin \
+    nmap nikto dnsrecon wafw00f sslyze amass theharvester dirb fierce \
+    dmitry dnsenum whatweb wapiti xsser uniscan davtest lbd dnsmap \
+    dnswalk wget whois bind9-host \
     && setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip "$(readlink -f "$(command -v nmap)")" \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -29,7 +29,9 @@ WORKDIR /app
 
 # Hash-pinned dependencies (--require-hashes refuses anything not in the lock file).
 COPY requirements.txt .
-RUN pip3 install --require-hashes --break-system-packages -r requirements.txt
+RUN python3 -m venv /opt/venv \
+    && /opt/venv/bin/pip install --require-hashes -r requirements.txt
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY --chown=scanner:scanner . .
 
