@@ -1,6 +1,6 @@
 # SwiftScan — Multi-Tool Web Vulnerability Scanner
 
-> **SwiftScan** automates *binge-tool-scanning* — running multiple security tools back-to-back, correlating results, attempting to reduce false positives, and producing a structured report — all under one roof.
+> **SwiftScan** automates _binge-tool-scanning_ — running multiple security tools back-to-back, correlating results, attempting to reduce false positives, and producing a structured report — all under one roof.
 
 ---
 
@@ -35,12 +35,12 @@ This is the shortest path from a fresh machine to your first scan. Each step lin
 
 ### 0. What you need
 
-| Requirement | Why |
-|---|---|
-| **Python 3.11 or newer** (`python3 --version`) | runs SwiftScan |
-| **git** | to download the code (and for `--update`) |
-| **The scanning tools** (nmap, nikto, ...) | SwiftScan only *drives* them. Checks whose tool is missing are skipped. Kali Linux has most of them; on Windows use WSL 2 (Kali); or use Docker, which has everything. |
-| API keys *(optional)* | Shodan / VirusTotal / Censys enrichment |
+| Requirement                                    | Why                                                                                                                                                                    |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Python 3.11 or newer** (`python3 --version`) | runs SwiftScan                                                                                                                                                         |
+| **git**                                        | to download the code (and for `--update`)                                                                                                                              |
+| **The scanning tools** (nmap, nikto, ...)      | SwiftScan only _drives_ them. Checks whose tool is missing are skipped. Kali Linux has most of them; on Windows use WSL 2 (Kali); or use Docker, which has everything. |
+| API keys _(optional)_                          | Shodan / VirusTotal / Censys enrichment                                                                                                                                |
 
 No Kali and no WSL? Skip to [Option C: Docker](#option-c--docker-any-os).
 
@@ -85,7 +85,7 @@ pip install -r requirements.txt
 
 On Kali / Debian: the `apt-get` command in [Option A](#option-a--native-kali-linux-recommended). On Windows: [Option B](#option-b--windows-with-wsl-2-kali). Not sure what you have? Step 5 shows which tools were found.
 
-### 4. Add your API keys *(optional)*
+### 4. Add your API keys _(optional)_
 
 Without keys SwiftScan still runs; the OSINT section of the report just says `NOT CONFIGURED`.
 
@@ -137,9 +137,11 @@ By default the web UI only answers requests from the same machine. To set an acc
 ```bash
 export SWIFTSCAN_TOKEN="choose-a-long-random-string"      # Linux / macOS / WSL
 ```
+
 ```powershell
 $env:SWIFTSCAN_TOKEN = "choose-a-long-random-string"      # Windows PowerShell
 ```
+
 ```bat
 rem Windows cmd (no spaces around =, and nothing after the value)
 set SWIFTSCAN_TOKEN=choose-a-long-random-string
@@ -175,14 +177,14 @@ Stop the web server with `Ctrl+C`. Update with `python3 swiftscan.py --update` (
 
 ## Vulnerability Checks
 
-| Category | Examples |
-|---|---|
-| DNS | Zone transfers, sub-domain brute-force, DNS load balancers |
-| HTTP | Open directories, CMS detection (WordPress / Joomla / Drupal), WAF detection |
-| SSL/TLS | HEARTBLEED, FREAK, POODLE, CCS Injection, LOGJAM, OCSP |
-| Ports | Commonly exposed services (RDP, SMB, SNMP, DB ports) |
-| Injection | Shallow XSS, SQLi, BSQLi banners |
-| DoS / LFI | Slow-Loris, Local/Remote File Inclusion, Remote Code Execution |
+| Category  | Examples                                                                     |
+| --------- | ---------------------------------------------------------------------------- |
+| DNS       | Zone transfers, sub-domain brute-force, DNS load balancers                   |
+| HTTP      | Open directories, CMS detection (WordPress / Joomla / Drupal), WAF detection |
+| SSL/TLS   | HEARTBLEED, FREAK, POODLE, CCS Injection, LOGJAM, OCSP                       |
+| Ports     | Commonly exposed services (RDP, SMB, SNMP, DB ports)                         |
+| Injection | Shallow XSS, SQLi, BSQLi banners                                             |
+| DoS / LFI | Slow-Loris, Local/Remote File Inclusion, Remote Code Execution               |
 
 ---
 
@@ -190,31 +192,31 @@ Stop the web server with `Ctrl+C`. Update with `python3 swiftscan.py --update` (
 
 SwiftScan auto-detects available tools and skips those that aren't installed — partial environments still work.
 
-| Tool | Native Kali | Windows + WSL 2 (Kali) | Docker |
-|---|:---:|:---:|:---:|
-| `nmap` | ✅ | ✅ native | ✅ |
-| `nikto` | ✅ | ✅ via WSL | ✅ |
-| `dnsrecon` | ✅ | ✅ via WSL | ✅ |
-| `wafw00f` | ✅ | ✅ via WSL | ✅ |
-| `sslyze` | ✅ | ✅ via WSL | ✅ |
-| `amass` | ✅ | ✅ via WSL | ✅ |
-| `theharvester` | ✅ | ✅ via WSL | ✅ |
-| `dirb` | ✅ | ✅ via WSL | ✅ |
-| `fierce` | ✅ | ✅ via WSL | ✅ |
-| `dmitry` | ✅ | ✅ via WSL | ✅ |
-| `dnsenum` | ✅ | ✅ via WSL | ✅ |
-| `whatweb` | ✅ | ✅ via WSL | ✅ |
-| `wapiti` | ✅ | ✅ via WSL | ✅ |
-| `xsser` | ✅ | ✅ via WSL | ✅ |
-| `uniscan` | ✅ | ✅ via WSL | ✅ |
-| `davtest` | ✅ | ✅ via WSL | ✅ |
-| `lbd` | ✅ | ✅ via WSL | ✅ |
-| `dnsmap` | ✅ | ✅ via WSL | ✅ |
-| `dnswalk` | ✅ | ✅ via WSL | ✅ |
-| `wget` | ✅ | ✅ Python built-in | ✅ |
-| `whois` | ✅ | ✅ Python built-in | ✅ |
-| `host` | ✅ | ✅ Python built-in | ✅ |
-| `golismero` | ❌ abandoned | ❌ | ❌ |
+| Tool           | Native Kali  | Windows + WSL 2 (Kali) | Docker |
+| -------------- | :----------: | :--------------------: | :----: |
+| `nmap`         |      ✅      |       ✅ native        |   ✅   |
+| `nikto`        |      ✅      |       ✅ via WSL       |   ✅   |
+| `dnsrecon`     |      ✅      |       ✅ via WSL       |   ✅   |
+| `wafw00f`      |      ✅      |       ✅ via WSL       |   ✅   |
+| `sslyze`       |      ✅      |       ✅ via WSL       |   ✅   |
+| `amass`        |      ✅      |       ✅ via WSL       |   ✅   |
+| `theharvester` |      ✅      |       ✅ via WSL       |   ✅   |
+| `dirb`         |      ✅      |       ✅ via WSL       |   ✅   |
+| `fierce`       |      ✅      |       ✅ via WSL       |   ✅   |
+| `dmitry`       |      ✅      |       ✅ via WSL       |   ✅   |
+| `dnsenum`      |      ✅      |       ✅ via WSL       |   ✅   |
+| `whatweb`      |      ✅      |       ✅ via WSL       |   ✅   |
+| `wapiti`       |      ✅      |       ✅ via WSL       |   ✅   |
+| `xsser`        |      ✅      |       ✅ via WSL       |   ✅   |
+| `uniscan`      |      ✅      |       ✅ via WSL       |   ✅   |
+| `davtest`      |      ✅      |       ✅ via WSL       |   ✅   |
+| `lbd`          |      ✅      |       ✅ via WSL       |   ✅   |
+| `dnsmap`       |      ✅      |       ✅ via WSL       |   ✅   |
+| `dnswalk`      |      ✅      |       ✅ via WSL       |   ✅   |
+| `wget`         |      ✅      |   ✅ Python built-in   |   ✅   |
+| `whois`        |      ✅      |   ✅ Python built-in   |   ✅   |
+| `host`         |      ✅      |   ✅ Python built-in   |   ✅   |
+| `golismero`    | ❌ abandoned |           ❌           |   ❌   |
 
 > **Windows note:** `wget`, `whois`, and `host` have native Python fallback engines — they work on all platforms with no external dependency. All other Linux tools are auto-bridged through your Kali WSL instance.
 
@@ -362,13 +364,13 @@ Security defaults of the web UI:
 - Loopback, private, link-local and cloud-metadata targets are refused. Set `SWIFTSCAN_ALLOW_INTERNAL=1` (web) or pass `--allow-internal` (CLI) to scan your own internal hosts.
 - Run it with a single gunicorn worker (the "one scan" slot is per process).
 
-| Variable | Purpose | Default |
-|---|---|---|
-| `SWIFTSCAN_TOKEN` | Access token for the web UI | unset (local-only) |
-| `SWIFTSCAN_ALLOW_INTERNAL` | Allow private/loopback targets in the web UI | off |
-| `SWIFTSCAN_REPORTS_DIR` | Where reports are written | `./reports` next to the app |
-| `SWIFTSCAN_LOG_DIR` | Where `swiftscan_error.log` and `swiftscan_audit.log` go | current directory |
-| `SWIFTSCAN_DEBUG` | Debug-level logging | off |
+| Variable                   | Purpose                                                  | Default                     |
+| -------------------------- | -------------------------------------------------------- | --------------------------- |
+| `SWIFTSCAN_TOKEN`          | Access token for the web UI                              | unset (local-only)          |
+| `SWIFTSCAN_ALLOW_INTERNAL` | Allow private/loopback targets in the web UI             | off                         |
+| `SWIFTSCAN_REPORTS_DIR`    | Where reports are written                                | `./reports` next to the app |
+| `SWIFTSCAN_LOG_DIR`        | Where `swiftscan_error.log` and `swiftscan_audit.log` go | current directory           |
+| `SWIFTSCAN_DEBUG`          | Debug-level logging                                      | off                         |
 
 `swiftscan_audit.log` has one JSON line per event (scan started/completed/rejected, logins, denied requests) with timestamp, client IP, target and the consent flag. The consent checkbox is a record that the operator certified authorization; it is not an access control.
 
@@ -406,24 +408,24 @@ The `.env` file is listed in `.gitignore` and will never be committed to Git.
 
 Every scan writes into the reports folder: `./reports` by default, or the folder in `SWIFTSCAN_REPORTS_DIR` (the Docker image uses `/data/reports`). `<stamp>` is the date and time, so repeat scans never overwrite each other.
 
-| File | Written by | What it contains |
-|---|---|---|
-| `rs.vul.<target>.<stamp>` | CLI (only if something was found) and web | Each finding: title, severity (Critical / High / Medium / Low / Info), definition, remediation, CWE reference |
-| `rs.api.<target>.<stamp>` | CLI and web | OSINT results per source, or the reason a source gave nothing |
-| `rs.json.<target>.<stamp>.json` | web always, CLI with `--json` | Everything above as JSON, plus counts, elapsed time and whether the time budget cut the scan short |
-| `rs.dbg.<target>.<stamp>` | CLI | Raw output of every tool, for checking a finding by hand |
+| File                            | Written by                                | What it contains                                                                                              |
+| ------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `rs.vul.<target>.<stamp>`       | CLI (only if something was found) and web | Each finding: title, severity (Critical / High / Medium / Low / Info), definition, remediation, CWE reference |
+| `rs.api.<target>.<stamp>`       | CLI and web                               | OSINT results per source, or the reason a source gave nothing                                                 |
+| `rs.json.<target>.<stamp>.json` | web always, CLI with `--json`             | Everything above as JSON, plus counts, elapsed time and whether the time budget cut the scan short            |
+| `rs.dbg.<target>.<stamp>`       | CLI                                       | Raw output of every tool, for checking a finding by hand                                                      |
 
 **OSINT statuses** in `rs.api.*`:
 
-| Status | Meaning | What to do |
-|---|---|---|
-| `OK` | Data returned | n/a |
-| `NOT CONFIGURED` | No key in `.env` | Add the key (optional) |
-| `AUTH FAILED` | The service rejected your key (HTTP 401/403) | Check/regenerate the key. Censys needs a **Platform** personal access token |
-| `NO DATA` | The service has no record of this target (404) | Normal for small or new sites |
-| `RATE LIMITED` | Too many requests (429) | Wait, or check your plan's limits |
-| `FAILED` | Network error, timeout or unexpected reply | Re-run; see `swiftscan_error.log` |
-| `SKIPPED` | The target did not resolve to an IP | Check the hostname |
+| Status           | Meaning                                        | What to do                                                                  |
+| ---------------- | ---------------------------------------------- | --------------------------------------------------------------------------- |
+| `OK`             | Data returned                                  | n/a                                                                         |
+| `NOT CONFIGURED` | No key in `.env`                               | Add the key (optional)                                                      |
+| `AUTH FAILED`    | The service rejected your key (HTTP 401/403)   | Check/regenerate the key. Censys needs a **Platform** personal access token |
+| `NO DATA`        | The service has no record of this target (404) | Normal for small or new sites                                               |
+| `RATE LIMITED`   | Too many requests (429)                        | Wait, or check your plan's limits                                           |
+| `FAILED`         | Network error, timeout or unexpected reply     | Re-run; see `swiftscan_error.log`                                           |
+| `SKIPPED`        | The target did not resolve to an IP            | Check the hostname                                                          |
 
 **Treat findings as leads, not proof.** Detection is signature matching on tool output: confirm each finding manually (the `rs.dbg.*` file or the tool itself) before reporting it.
 
@@ -433,23 +435,23 @@ Every scan writes into the reports folder: `./reports` by default, or the folder
 
 ## Troubleshooting
 
-| Symptom | Cause | Fix |
-|---|---|---|
-| `ModuleNotFoundError: No module named 'flask'` | Packages not installed, or the virtual environment isn't active | Activate `.venv`, then `pip install -r requirements.txt` |
-| `SyntaxError` / odd errors on start | Python older than 3.11 | Check `python3 --version`; install 3.11+ |
-| Most checks show as **skipped** | Their tool isn't installed (or not visible from Windows/WSL) | Install the tools ([Option A/B](#installation)); the web UI's tool list (`/api/tools`) shows what was found |
-| `... is or resolves to an internal/reserved address and cannot be scanned` | Built-in safety block on loopback, private, link-local and cloud-metadata addresses | Only if it is *your* host: pass `--allow-internal` (CLI) or set `SWIFTSCAN_ALLOW_INTERNAL=1` (web) |
-| Browser shows **403 "Access restricted to localhost"** | Opened from another machine, through Docker, or via a proxy without `SWIFTSCAN_TOKEN` set | Open it on the same machine, or set `SWIFTSCAN_TOKEN` and restart |
-| Browser keeps sending you to `/login` | Token required | Enter the exact value of `SWIFTSCAN_TOKEN`. After 5 wrong tries wait a minute |
-| **403 "Cross-site requests are not allowed"** | The page was opened through a different host name or by another site | Use the same URL for the page and the API (e.g. `http://localhost:5000`) |
-| **"Server is busy"** | One scan runs at a time | Wait for it to finish (it continues even if its tab was closed) |
-| `Binding to 0.0.0.0 requires SWIFTSCAN_TOKEN` | Safety check for network-reachable servers | Set `SWIFTSCAN_TOKEN` first, or bind to `127.0.0.1` |
-| Docker: web UI returns 403 | No token (see above) | Run with `-e SWIFTSCAN_TOKEN=...` |
-| Docker: `permission denied` writing reports | Reports directory isn't on the `/data` volume | Mount `-v swiftscan-data:/data` |
-| A check shows **timed out** | The tool took longer than the per-tool limit | Raise `--tool-timeout` (CLI) or the budget (web); the maximum per tool is 300 s in the web UI |
-| Scan stops early with *"Time budget reached"* | The overall time budget was used up | Increase the budget; remaining checks were skipped, reports are still written |
-| `nmap` raw/UDP scans find nothing as a normal user | They need elevated network access | Run as root/administrator, or use the Docker image (nmap is given the needed capabilities) |
-| Windows: tools "not found" although installed in Kali | Tools must be in the `kali-linux` WSL distro | `wsl -d kali-linux`, install them there, re-run |
+| Symptom                                                                    | Cause                                                                                     | Fix                                                                                                         |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `ModuleNotFoundError: No module named 'flask'`                             | Packages not installed, or the virtual environment isn't active                           | Activate `.venv`, then `pip install -r requirements.txt`                                                    |
+| `SyntaxError` / odd errors on start                                        | Python older than 3.11                                                                    | Check `python3 --version`; install 3.11+                                                                    |
+| Most checks show as **skipped**                                            | Their tool isn't installed (or not visible from Windows/WSL)                              | Install the tools ([Option A/B](#installation)); the web UI's tool list (`/api/tools`) shows what was found |
+| `... is or resolves to an internal/reserved address and cannot be scanned` | Built-in safety block on loopback, private, link-local and cloud-metadata addresses       | Only if it is _your_ host: pass `--allow-internal` (CLI) or set `SWIFTSCAN_ALLOW_INTERNAL=1` (web)          |
+| Browser shows **403 "Access restricted to localhost"**                     | Opened from another machine, through Docker, or via a proxy without `SWIFTSCAN_TOKEN` set | Open it on the same machine, or set `SWIFTSCAN_TOKEN` and restart                                           |
+| Browser keeps sending you to `/login`                                      | Token required                                                                            | Enter the exact value of `SWIFTSCAN_TOKEN`. After 5 wrong tries wait a minute                               |
+| **403 "Cross-site requests are not allowed"**                              | The page was opened through a different host name or by another site                      | Use the same URL for the page and the API (e.g. `http://localhost:5000`)                                    |
+| **"Server is busy"**                                                       | One scan runs at a time                                                                   | Wait for it to finish (it continues even if its tab was closed)                                             |
+| `Binding to 0.0.0.0 requires SWIFTSCAN_TOKEN`                              | Safety check for network-reachable servers                                                | Set `SWIFTSCAN_TOKEN` first, or bind to `127.0.0.1`                                                         |
+| Docker: web UI returns 403                                                 | No token (see above)                                                                      | Run with `-e SWIFTSCAN_TOKEN=...`                                                                           |
+| Docker: `permission denied` writing reports                                | Reports directory isn't on the `/data` volume                                             | Mount `-v swiftscan-data:/data`                                                                             |
+| A check shows **timed out**                                                | The tool took longer than the per-tool limit                                              | Raise `--tool-timeout` (CLI) or the budget (web); the maximum per tool is 300 s in the web UI               |
+| Scan stops early with _"Time budget reached"_                              | The overall time budget was used up                                                       | Increase the budget; remaining checks were skipped, reports are still written                               |
+| `nmap` raw/UDP scans find nothing as a normal user                         | They need elevated network access                                                         | Run as root/administrator, or use the Docker image (nmap is given the needed capabilities)                  |
+| Windows: tools "not found" although installed in Kali                      | Tools must be in the `kali-linux` WSL distro                                              | `wsl -d kali-linux`, install them there, re-run                                                             |
 
 Still stuck? Re-run with `SWIFTSCAN_DEBUG=1` and read `swiftscan_error.log`.
 
@@ -500,15 +502,3 @@ Options:
   --tool-timeout SECS    Kill any single tool after N seconds (default: 120).
   -w, --web              Launch the interactive web application UI.
 ```
-
----
-
-## Contribution
-
-1. Fork the repository.
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :rocket:
-
-
