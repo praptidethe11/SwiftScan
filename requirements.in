@@ -1,0 +1,5 @@
+# Direct runtime dependencies (the CLI itself needs none; these are for the web UI).
+# requirements.txt is generated from this file:
+#   pip-compile --generate-hashes --strip-extras -o requirements.txt requirements.in
+flask>=3.0,<4
+gunicorn>=22,<24; sys_platform != "win32"

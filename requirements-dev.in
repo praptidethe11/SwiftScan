@@ -1,0 +1,8 @@
+# Direct development dependencies. requirements-dev.txt is generated from this file:
+#   pip-compile --generate-hashes --strip-extras -o requirements-dev.txt requirements-dev.in
+-r requirements.in
+pytest>=8,<9
+ruff>=0.6
+bandit>=1.7
+pip-audit>=2.7
+pip-tools>=7

@@ -1,0 +1,22 @@
+# Runs the same checks as CI, using the pinned versions from requirements-dev.txt:
+#   pip install -r requirements-dev.txt && pre-commit install
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: ruff check
+        language: system
+        types: [python]
+      - id: bandit
+        name: bandit
+        entry: bandit -c pyproject.toml -ll
+        language: system
+        types: [python]
+        exclude: ^tests/
+      - id: pytest
+        name: pytest
+        entry: pytest -q
+        language: system
+        pass_filenames: false
+        types: [python]

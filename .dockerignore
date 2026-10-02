@@ -1,0 +1,15 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+reports/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+tests/
+*.log
+*.log.*
+.claude/

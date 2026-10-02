@@ -1,0 +1,27 @@
+# Tool configuration only. Packaging lives in setup.py.
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+extend-exclude = ["reports", "build", "dist", "*.egg-info"]
+
+[tool.ruff.lint]
+# E/W pycodestyle, F pyflakes, B bugbear, S flake8-bandit (security), UP pyupgrade-lite
+select = ["E4", "E7", "E9", "F", "B", "S", "W"]
+ignore = [
+    "S101",   # assert: used in tests and for the import-time table-length check
+    "S404",   # importing subprocess is the whole point of a scanner launcher
+    "S603",   # subprocess with shell=False, argv list and a validated target
+    "S607",   # tools are found on $PATH by design (nmap, nikto, git, ...)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B011"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "reports", ".git", "build", "dist"]
+# B101: the import-time table-length check is an intentional assert.
+# B404/B603/B607: subprocess is used on purpose, with shell=False, argv lists and
+# a validated target. B607 (partial executable path) is inherent to running
+# nmap/nikto/etc. from $PATH, and `git`/`wsl`/`taskkill` for update and cleanup.
+skips = ["B101", "B404", "B603", "B607"]

@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Secrets - never commit
+.env
+
+# Scan output/artifacts produced by running swiftscan.py
+reports/
+swiftscan_error.log
+swiftscan_audit.log
+swiftscan_audit.log.*
+swiftscan_error.log.*
+rs.dbg.*
+rs.vul.*
+rs.api.*
+rs.json.*
+
+# Local tool state / editor junk
+.claude/
+C#U*
