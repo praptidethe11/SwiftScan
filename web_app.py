@@ -101,7 +101,19 @@ def _is_cross_site():
         return True
     origin = request.headers.get("Origin")
     if origin is not None:
-        return origin == "null" or urlsplit(origin).netloc != request.host
+        if origin == "null":
+            return True
+        origin_netloc = urlsplit(origin).netloc
+        if origin_netloc == request.host:
+            return False
+        # Treat loopback aliases (localhost, 127.0.0.1, [::1]) on the same port as same-origin
+        origin_host = origin_netloc.split(":", 1)[0] if ":" in origin_netloc else origin_netloc
+        req_host = request.host.split(":", 1)[0] if ":" in request.host else request.host
+        origin_port = origin_netloc.split(":", 1)[1] if ":" in origin_netloc else ("443" if urlsplit(origin).scheme == "https" else "80")
+        req_port = request.host.split(":", 1)[1] if ":" in request.host else "80"
+        if _host_is_loopback(origin_host) and _host_is_loopback(req_host) and origin_port == req_port:
+            return False
+        return True
     return False
 
 
@@ -134,12 +146,12 @@ def guard():
     token = _expected_token()
 
     # No token configured -> local use only.
-    if not token and not _host_is_loopback(request.host):
+    if not token and not (_is_loopback_addr(request.remote_addr or "") and _host_is_loopback(request.host)):
         audit("access_denied", reason="no_token_non_local", client_ip=request.remote_addr, path=request.path)
         return _deny(403, "Access restricted to localhost. Set SWIFTSCAN_TOKEN to allow remote access.")
 
     # Block other websites from driving this app through the user's browser.
-    if (_wants_json() or (request.path == "/login" and request.method == "POST")) and _is_cross_site():
+    if _wants_json() and _is_cross_site():
         audit("access_denied", reason="cross_site", client_ip=request.remote_addr, path=request.path)
         return _deny(403, "Cross-site requests are not allowed.")
 

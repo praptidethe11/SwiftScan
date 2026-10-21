@@ -19,7 +19,7 @@ ignore = [
 "tests/*" = ["S", "B011"]
 
 [tool.bandit]
-exclude_dirs = ["tests", "reports", ".git", "build", "dist"]
+exclude_dirs = ["tests", "reports", ".git", "build", "dist", ".venv"]
 # B101: the import-time table-length check is an intentional assert.
 # B404/B603/B607: subprocess is used on purpose, with shell=False, argv lists and
 # a validated target. B607 (partial executable path) is inherent to running

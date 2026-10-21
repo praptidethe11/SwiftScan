@@ -190,7 +190,7 @@ def test_scan_loop_does_not_use_shell(monkeypatch):
 # ---------------------------------------------------------------------------
 def test_run_tool_captures_stdout_and_stderr(tmp_path):
     out = tmp_path / "o"
-    swiftscan.run_tool([sys.executable, "-c", "import sys; print('a'); print('b', file=sys.stderr)"],
+    swiftscan.run_tool([sys.executable, "-c", "import sys; print('a', flush=True); print('b', file=sys.stderr, flush=True)"],
                        str(out), 10)
     assert out.read_text().split() == ["a", "b"]
 
