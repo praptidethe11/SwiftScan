@@ -23,3 +23,5 @@ rs.json.*
 # Local tool state / editor junk
 .claude/
 C#U*
+
+.venv/
